@@ -3,70 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PhilMedConnect - Telehealth for PhilHealth Members</title>
+<title>PhilMedConnect</title>
 <style>
-body { 
-  font-family: Arial, sans-serif; 
-  margin:0; padding:0; 
-  background: linear-gradient(120deg, #f7f9fc, #e6f0ff); 
-  color:#333; 
-}
-header { text-align: center; padding:30px 15px 10px 15px; }
-header img { width: 200px; }
-
-/* Sections */
-section { 
-  display: none; 
-  max-width: 500px; 
-  margin: 0 auto 30px auto; 
-  padding: 20px; 
-  background: #fff; 
-  border-radius: 10px; 
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08); 
-  opacity: 0; 
-  transform: translateY(10px); 
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-section.active { 
-  display: block; 
-  opacity: 1; 
-  transform: translateY(0); 
-}
-
-h1, h2 { color: #2b6cb0; display: flex; align-items: center; }
-h1 svg, h2 svg { width: 24px; height: 24px; margin-right: 8px; fill: #2b6cb0; }
-
+/* --- General Styles --- */
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f7f9fc; color: #333; margin: 0; padding: 0; }
+h1,h2 { color: #2b6cb0; margin-bottom: 10px; }
 p { font-size: 16px; line-height: 1.5; }
+button { background: #2b6cb0; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+button:hover { transform: scale(1.03); transition: transform 0.3s ease, background 0.3s ease; background: #1a4c7d; }
+input,textarea,select { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
 
-form label { display: block; margin-top: 10px; font-weight: bold; }
-form input, form select, form textarea { 
-  width: 100%; padding: 10px; margin-top: 4px; 
-  border-radius: 5px; border: 1px solid #ccc; 
-  box-sizing: border-box; box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
-  transition: all 0.3s ease;
-}
-input:focus, select:focus, textarea:focus {
-  border-color: #2b6cb0;
-  box-shadow: 0 0 5px rgba(43,108,176,0.5);
-  outline: none;
-}
-textarea { resize: vertical; }
+/* --- Sections --- */
+section { display: none; padding: 20px; max-width: 500px; margin: auto; }
+section.active { display: block; animation: fadeInUp 0.6s ease forwards; }
 
-button { 
-  background: #2b6cb0; 
-  color: #fff; border: none; 
-  padding: 12px 20px; border-radius: 6px; 
-  cursor: pointer; font-size: 16px; margin-top: 15px; 
-  transition: all 0.3s ease;
-}
-button:hover {
-  background: #1a4c7d;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transform: translateY(-2px);
-}
+/* --- Animations --- */
+@keyframes fadeInUp { from { opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
+@keyframes logoBounce { 0%,20%,50%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-10px);} 60%{transform:translateY(-5px);} }
+header img { display:block; margin:auto; width:180px; animation: logoBounce 1.5s ease-in-out; }
 
-.note { font-size: 12px; color: #666; }
-.error { font-size: 12px; color: red; margin-top: 4px; display: none; }
+/* --- Back to Top --- */
+#backToTop { position:fixed; bottom:20px; right:20px; display:none; padding:8px 12px; font-size:14px; }
+
+/* --- Notes & Errors --- */
+.note { font-size:12px; color:#555; margin-top:-5px; margin-bottom:10px; }
+.error { color:red; font-size:12px; display:none; }
+
+/* --- Form Styling --- */
+.form-input { margin-bottom: 12px; }
 </style>
 </head>
 <body>
@@ -75,172 +39,150 @@ button:hover {
   <img src="philmedconnect_logo.png" alt="PhilMedConnect Logo">
 </header>
 
-<!-- SECTION 1: Welcome / Mission -->
+<!-- SECTION 1: Welcome -->
 <section id="welcome" class="active">
-  <h1>
-    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-    Maligayang Pagdating sa PhilMedConnect!
-  </h1>
-  <p>
-    Ginagawa naming mas madali ang healthcare para sa lahat sa modernong panahon. Kumonekta sa aming licensed doctors online. 
-    Kung may prescription na sakop ng PhilHealth, ihahatid ito sa inyong bahay <strong>walang babayaran sa pasyente</strong>.
-  </p>
-  <p class="note"><strong>Para lamang sa active PhilHealth members.</strong></p>
-  <p>
-    Gamit ang bagong teknolohiya, layunin naming ilapit ang healthcare sa inyong mga kamay.
-  </p>
+  <h1>Maligayang Pagdating!</h1>
+  <p>We make healthcare access easier for all active PhilHealth members. Kung may nararamdaman ka o may sakit, mag-register ngayon at makakonekta ka sa licensed doctor online.</p>
+  <p>If the doctor prescribes PhilHealth-covered medications, we will deliver them to your home at no cost.</p>
+  <p>Para lamang sa active PhilHealth members. Your information will be kept confidential.</p>
   <button onclick="showSection('form')">Mag-register Ngayon</button>
 </section>
 
 <!-- SECTION 2: Form -->
 <section id="form">
-  <h2>
-    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14l4-4h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
-    Registration Form
-  </h2>
+  <h2>Registration Form</h2>
   <form id="leadForm">
-    <label>First Name *</label>
-    <input type="text" name="firstName" required>
-
-    <label>Middle Name</label>
-    <input type="text" name="middleName">
-
-    <label>Last Name *</label>
-    <input type="text" name="lastName" required>
-
-    <label>Suffix</label>
-    <select name="suffix">
-      <option value="">None</option>
-      <option value="Jr">Jr</option>
-      <option value="Sr">Sr</option>
-      <option value="III">III</option>
-      <option value="IV">IV</option>
-    </select>
-
-    <label>Date of Birth *</label>
-    <input type="date" name="dob" required>
-
-    <label>PhilHealth Number *</label>
-    <input type="text" name="philhealthNumber" required>
-    <div id="philDuplicate" class="error">Duplicate PhilHealth number.</div>
-
-    <label>Contact Number *</label>
-    <input type="text" name="contact" placeholder="10 digits starting with 0" required>
-    <div id="contactError" class="error">Please enter a valid 10-digit number starting with 0.</div>
-
-    <label>Email Address</label>
-    <input type="email" name="email">
-
-    <label>Street Address *</label>
-    <input type="text" name="streetAddress" required>
-
-    <label>Barangay *</label>
-    <input type="text" name="barangay" required>
-
-    <label>Municipality / City *</label>
-    <input type="text" name="city" required>
-
-    <label>Province *</label>
-    <input type="text" name="province" required>
-
-    <label>Symptoms / Reason for consult *</label>
-    <textarea name="symptoms" rows="3" required></textarea>
-
-    <button type="submit">Submit</button>
+    <div class="form-input">
+      <label>First Name *</label>
+      <input type="text" name="firstName" required>
+    </div>
+    <div class="form-input">
+      <label>Middle Name (optional)</label>
+      <input type="text" name="middleName">
+    </div>
+    <div class="form-input">
+      <label>Last Name *</label>
+      <input type="text" name="lastName" required>
+    </div>
+    <div class="form-input">
+      <label>Suffix</label>
+      <select name="suffix">
+        <option value="">None</option>
+        <option value="Jr">Jr</option>
+        <option value="Sr">Sr</option>
+        <option value="III">III</option>
+        <option value="IV">IV</option>
+      </select>
+    </div>
+    <div class="form-input">
+      <label>Date of Birth *</label>
+      <input type="date" name="dob" required>
+    </div>
+    <div class="form-input">
+      <label>PhilHealth Number *</label>
+      <input type="text" name="philhealthNumber" required>
+    </div>
+    <div class="form-input">
+      <label>Contact Number *</label>
+      <input type="text" name="contact" required>
+      <div id="contactError" class="error">Please enter an 11-digit number starting with 0.</div>
+    </div>
+    <div class="form-input">
+      <label>Email Address</label>
+      <input type="email" name="email">
+    </div>
+    <div class="form-input">
+      <label>Street Address *</label>
+      <input type="text" name="street" required>
+    </div>
+    <div class="form-input">
+      <label>Barangay *</label>
+      <input type="text" name="barangay" required>
+    </div>
+    <div class="form-input">
+      <label>City / Municipality *</label>
+      <input type="text" name="city" required>
+    </div>
+    <div class="form-input">
+      <label>Province *</label>
+      <input type="text" name="province" required>
+    </div>
+    <div class="form-input">
+      <label>Symptoms / Reason for consult *</label>
+      <textarea name="symptoms" rows="3" required></textarea>
+    </div>
+    <div id="philDuplicate" class="error">Duplicate entry detected for PhilHealth Number.</div>
     <p class="note">Your information will be kept confidential and only used for medical consultation purposes.</p>
+    <button type="button" onclick="leadForm.reset()">Clear Form</button>
+    <button type="submit">Submit</button>
   </form>
+  <button onclick="showSection('welcome')">Back</button>
 </section>
 
 <!-- SECTION 3: Thank You -->
 <section id="thankyou">
-  <h2>
-    <svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14l5 5 12-12-1.5-1.5z"/></svg>
-    Thank You!
-  </h2>
-  <p>
-    We will reach out to you shortly. Our friendly healthcare agents will contact you. 
-    Please keep your lines open while we verify your PhilHealth eligibility.
-  </p>
+  <h2>Salamat!</h2>
+  <p>We will reach out to you shortly. Please keep your lines open. Our friendly healthcare agents will contact you.</p>
 </section>
 
+<button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top</button>
+
 <script>
-function showSection(sectionId){
-  const sections = document.querySelectorAll('section');
-  sections.forEach(sec => {
-    sec.classList.remove('active');
-    sec.style.opacity = 0;
-  });
-  const target = document.getElementById(sectionId);
-  target.classList.add('active');
-  setTimeout(() => { target.style.opacity = 1; }, 50);
+const sections = document.querySelectorAll('section');
+function showSection(id){
+  sections.forEach(sec => sec.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function validatePhone(number){
-  const phoneRegex = /^0\d{9}$/;
-  return phoneRegex.test(number);
-}
+// Back to Top visibility
+window.onscroll = function(){
+  document.getElementById('backToTop').style.display = (window.scrollY > 200)?'block':'none';
+};
 
-// Handle form submission
-document.getElementById("leadForm").addEventListener("submit", function(e){
+// Form Submission
+const leadForm = document.getElementById('leadForm');
+leadForm.addEventListener('submit', function(e){
   e.preventDefault();
-  const submitBtn = e.target.querySelector("button[type='submit']");
-  submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting...";
-
-  // Clear previous errors
-  document.getElementById("contactError").style.display = "none";
-  document.getElementById("philDuplicate").style.display = "none";
-
-  const contact = e.target.contact.value.trim();
-  if(!validatePhone(contact)){
-    document.getElementById("contactError").style.display = "block";
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit";
-    return;
-  }
-
   const formData = {
-    firstName: e.target.firstName.value,
-    middleName: e.target.middleName.value,
-    lastName: e.target.lastName.value,
+    firstName: e.target.firstName.value.trim(),
+    middleName: e.target.middleName.value.trim(),
+    lastName: e.target.lastName.value.trim(),
     suffix: e.target.suffix.value,
     dob: e.target.dob.value,
-    philhealthNumber: e.target.philhealthNumber.value,
-    contact: contact,
-    email: e.target.email.value,
-    streetAddress: e.target.streetAddress.value,
-    barangay: e.target.barangay.value,
-    city: e.target.city.value,
-    province: e.target.province.value,
-    symptoms: e.target.symptoms.value
+    philhealthNumber: e.target.philhealthNumber.value.trim(),
+    contact: e.target.contact.value.trim(),
+    email: e.target.email.value.trim(),
+    street: e.target.street.value.trim(),
+    barangay: e.target.barangay.value.trim(),
+    city: e.target.city.value.trim(),
+    province: e.target.province.value.trim(),
+    symptoms: e.target.symptoms.value.trim()
   };
 
+  // Validate contact number (11 digits starting with 0)
+  if(!/^0\d{10}$/.test(formData.contact)){
+    document.getElementById('contactError').style.display = 'block';
+    return;
+  } else {
+    document.getElementById('contactError').style.display = 'none';
+  }
+
+  // Send to Google Sheets
   fetch("https://script.google.com/macros/s/AKfycbwDEn9WnQDisRx31aXrmIEGzh8wjZmcuCQVJgK_a4onNpwt6Ua3HtS0WooubZzH-jOd9A/exec", {
     method: "POST",
     body: JSON.stringify(formData)
   })
-  .then(res => res.text())
+  .then(res => res.json())
   .then(data => {
-    if(data.includes("Success")){
-      showSection("thankyou");
-      e.target.reset();
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit";
-    } else if(data.includes("Duplicate")){
-      document.getElementById("philDuplicate").style.display = "block";
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit";
+    if(data.status === 'duplicate'){
+      document.getElementById('philDuplicate').style.display = 'block';
     } else {
-      alert(data);
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit";
+      document.getElementById('philDuplicate').style.display = 'none';
+      leadForm.reset();
+      showSection('thankyou');
     }
   })
-  .catch(err => {
-      alert("Error submitting form.");
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit";
-  });
+  .catch(err => alert('Submission error. Please try again.'));
 });
 </script>
 
