@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PhilMedConnect - Free Telehealth for PhilHealth Members</title>
+  <title>PhilConnect - Free Telehealth</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,14 +15,10 @@
       width: 180px;
       margin-bottom: 20px;
     }
-    p.description {
-      font-size: 16px;
-      margin-bottom: 25px;
-    }
     form {
       background: #fff;
       max-width: 500px;
-      margin: 0 auto;
+      margin: 20px auto;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -33,7 +29,7 @@
       margin: 8px 0 4px;
       font-weight: bold;
     }
-    input, textarea, select {
+    input, select, textarea {
       width: 100%;
       padding: 8px;
       margin-bottom: 12px;
@@ -48,7 +44,6 @@
       border-radius: 5px;
       cursor: pointer;
       width: 100%;
-      font-size: 16px;
     }
     button:hover {
       background: #1a4c7d;
@@ -56,10 +51,7 @@
   </style>
 </head>
 <body>
-  <!-- PhilMedConnect Logo -->
-  <img src="philmedconnect_logo.png" alt="PhilMedConnect Logo" class="logo">
-
-  <p class="description">Free Doctor Consultation & Medicine Access for PhilHealth Members</p>
+  <img src="philmedconnect_logo.png" alt="PhilConnect Logo" class="logo">
 
   <form id="leadForm">
     <label>First Name:</label>
@@ -93,18 +85,18 @@
     <input type="email" name="email" required>
 
     <label>Street Address:</label>
-    <input type="text" name="street" required>
+    <input type="text" name="streetAddress" required>
 
     <label>Barangay:</label>
     <input type="text" name="barangay" required>
 
     <label>Municipality / City:</label>
-    <input type="text" name="municipality" required>
+    <input type="text" name="city" required>
 
     <label>Province:</label>
     <input type="text" name="province" required>
 
-    <label>Symptoms / Reason for consult:</label>
+    <label>Symptoms / Reason for Consult:</label>
     <textarea name="symptoms" rows="3" required></textarea>
 
     <button type="submit">Submit</button>
@@ -113,6 +105,7 @@
   <script>
     document.getElementById("leadForm").addEventListener("submit", function(e){
       e.preventDefault();
+
       const formData = {
         firstName: e.target.firstName.value,
         middleName: e.target.middleName.value,
@@ -122,9 +115,9 @@
         philhealthNumber: e.target.philhealthNumber.value,
         contact: e.target.contact.value,
         email: e.target.email.value,
-        street: e.target.street.value,
+        streetAddress: e.target.streetAddress.value,
         barangay: e.target.barangay.value,
-        municipality: e.target.municipality.value,
+        city: e.target.city.value,
         province: e.target.province.value,
         symptoms: e.target.symptoms.value
       };
@@ -135,9 +128,17 @@
       })
       .then(res => res.text())
       .then(data => {
-        window.location.href = "thankyou.html";
+        if(data === "Duplicate submission detected.") {
+          alert("You have already submitted this form.");
+        } else if(data === "Success") {
+          alert("Thank you! We will reach out to you shortly. Please keep your lines open. Our friendly health care agents will contact you.");
+          e.target.reset();
+          window.location.href = "thankyou.html"; // redirect to your thank you page
+        } else {
+          alert("Error submitting form: " + data);
+        }
       })
-      .catch(err => alert("Error submitting form."));
+      .catch(err => alert("Error submitting form: " + err));
     });
   </script>
 </body>
