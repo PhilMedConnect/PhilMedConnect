@@ -5,196 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PhilMedConnect</title>
 <style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom, #f5f7fb, #e2ebf7);
-    color: #333;
-  }
-  .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 25px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  }
-  img.logo {
-    width: 180px;
-    display: block;
-    margin: 0 auto 20px;
-  }
-  h1 {
-    text-align: center;
-    color: #2b6cb0;
-    margin-bottom: 10px;
-  }
-  p {
-    font-size: 16px;
-    line-height: 1.5;
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .input-group {
-    position: relative;
-  }
-  .input-group i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-  }
-  input, select, textarea {
-    padding: 10px 10px 10px 35px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    width: 100%;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-    transition: border 0.3s;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: #2b6cb0;
-    outline: none;
-  }
-  button {
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #2b6cb0;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background-color: #1a4c7d;
-  }
-  .error, .success {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  .error { color: #d9534f; }
-  .success { color: #28a745; }
-  small { color: #666; }
+body { font-family: Arial,sans-serif; background:#f4f6f8; margin:0; color:#333; }
+.container { max-width:600px; margin:auto; padding:30px 20px; }
+.logo { display:block; margin:20px auto; width:180px; }
+h2 { text-align:center; color:#2b6cb0; }
+p { text-align:center; font-size:16px; line-height:1.5; }
+.page { display:none; animation:fadeIn 0.5s; }
+.active { display:block; }
+form { background:#fff; padding:20px; border-radius:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1); }
+label { display:block; margin:10px 0 5px; font-weight:bold; }
+input, select, textarea { width:100%; padding:8px; margin-bottom:12px; border-radius:5px; border:1px solid #ccc; box-sizing:border-box; }
+button { width:100%; padding:12px; background:#2b6cb0; color:#fff; border:none; border-radius:5px; font-size:16px; cursor:pointer; margin-top:10px; }
+button:hover { background:#1a4c7d; }
+small { display:block; font-size:12px; color:#666; margin-top:-8px; margin-bottom:8px; }
+.options { display:flex; gap:10px; justify-content:center; margin-top:20px; }
+.options button { width:auto; padding:10px 20px; }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 </style>
 </head>
 <body>
-
 <div class="container">
-  <img src="philmedconnect_logo.png" alt="PhilMedConnect Logo" class="logo">
 
-  <h1>Para sa Active PhilHealth Members</h1>
-  <p>Kung may nararamdaman o sakit, mag-register ngayon! Konektado ka sa licensed doctor online. Kung may PhilHealth-covered medication, ito ay ihahatid sa bahay mo <strong>no patient cost</strong>.</p>
+<!-- Page 1 -->
+<div id="page1" class="page active">
+  <img src="philmedconnect_logo.png" class="logo">
+  <p>We make healthcare access easier for active PhilHealth members. Connect online with licensed doctors. Consultations are covered by PhilHealth, and prescribed medications will be delivered to your home if eligible.</p>
+  <p><small>Para lamang sa active PhilHealth members. Your information is confidential and used only for consultation purposes.</small></p>
+  <button onclick="nextPage(2)">Mag-register Ngayon</button>
+</div>
 
+<!-- Page 2 -->
+<div id="page2" class="page">
   <form id="leadForm">
-
-    <div class="input-group">
-      <i class="fa fa-user"></i>
-      <input type="text" name="firstName" placeholder="First Name *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-user"></i>
-      <input type="text" name="middleName" placeholder="Middle Name">
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-user"></i>
-      <input type="text" name="lastName" placeholder="Last Name *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-asterisk"></i>
-      <select name="suffix">
-        <option value="">Suffix</option>
-        <option value="Jr">Jr</option>
-        <option value="Sr">Sr</option>
-        <option value="III">III</option>
-        <option value="IV">IV</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-calendar"></i>
-      <input type="date" name="dob" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-id-card"></i>
-      <input type="text" name="philhealthNumber" placeholder="PhilHealth Number *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-phone"></i>
-      <input type="text" name="contact" placeholder="Contact Number *" required>
-      <small>Enter 10 or 11 digits, numbers only.</small>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-envelope"></i>
-      <input type="email" name="email" placeholder="Email Address">
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-home"></i>
-      <input type="text" name="streetAddress" placeholder="Street Address *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-map-marker-alt"></i>
-      <input type="text" name="barangay" placeholder="Barangay *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-city"></i>
-      <input type="text" name="city" placeholder="Municipality / City *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-flag"></i>
-      <input type="text" name="province" placeholder="Province *" required>
-    </div>
-
-    <div class="input-group">
-      <i class="fa fa-stethoscope"></i>
-      <textarea name="symptoms" placeholder="Symptoms / Reason for Consult *" rows="3" required></textarea>
-    </div>
-
+    <label>First Name *</label><input type="text" name="firstName" required>
+    <label>Middle Name</label><input type="text" name="middleName">
+    <label>Last Name *</label><input type="text" name="lastName" required>
+    <label>Suffix</label>
+    <select name="suffix"><option value="">None</option><option>Jr</option><option>Sr</option><option>III</option><option>IV</option></select>
+    <label>Date of Birth *</label><input type="date" name="dob" required>
+    <label>PhilHealth Number *</label><input type="text" name="philhealthNumber" required>
+    <label>Contact Number *</label><input type="text" name="contact" placeholder="e.g. 09171234567" required>
+    <small>Please enter 11 digits starting with 0.</small>
+    <label>Email Address</label><input type="email" name="email">
+    <label>Street Address *</label><input type="text" name="streetAddress" required>
+    <label>Barangay *</label><input type="text" name="barangay" required>
+    <label>City / Municipality *</label><input type="text" name="city" required>
+    <label>Province *</label><input type="text" name="province" required>
+    <label>Symptoms / Reason for consult *</label><textarea name="symptoms" rows="3" required></textarea>
     <button type="submit">Submit</button>
-    <button type="button" id="clearBtn">Clear Form</button>
-
-    <div id="responseMsg"></div>
+    <button type="button" onclick="clearForm()">Clear Form</button>
+    <small id="formError" style="color:red"></small>
   </form>
+  <button onclick="nextPage(1)">Back</button>
+</div>
+
+<!-- Page 3 -->
+<div id="page3" class="page">
+  <img src="philmedconnect_logo.png" class="logo">
+  <h2>Thank you!</h2>
+  <p>We will reach out to you shortly. Please keep your lines open. Our friendly healthcare agents will contact you.</p>
+  <div class="options">
+    <button onclick="nextPage(2)">Register Another Patient</button>
+    <button onclick="nextPage(1)">I’m Done</button>
+  </div>
+</div>
+
 </div>
 
 <script>
-const form = document.getElementById("leadForm");
-const responseMsg = document.getElementById("responseMsg");
-const clearBtn = document.getElementById("clearBtn");
+const form=document.getElementById("leadForm");
+const errorEl=document.getElementById("formError");
+const webAppUrl="https://script.google.com/macros/s/AKfycbzdlm2P7BcEwtvjj2_zCWveSwVmVT1sRRQQs_IAqNN9zHgwLQAx59tmIlJTxsOOpPgF/exec";
 
-form.addEventListener("submit", function(e){
+function nextPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page'+n).classList.add('active');errorEl.textContent='';}
+function clearForm(){form.reset();errorEl.textContent='';}
+
+form.addEventListener("submit",function(e){
   e.preventDefault();
-  responseMsg.textContent = "";
+  errorEl.textContent='';
 
-  const formData = {
+  let contact=form.contact.value.trim();
+  if(contact.length===10 && !contact.startsWith("0")) contact="0"+contact;
+
+  const data={
     firstName: form.firstName.value.trim(),
     middleName: form.middleName.value.trim(),
     lastName: form.lastName.value.trim(),
     suffix: form.suffix.value,
     dob: form.dob.value,
     philhealthNumber: form.philhealthNumber.value.trim(),
-    contact: form.contact.value.trim(),
+    contact: contact,
     email: form.email.value.trim(),
     streetAddress: form.streetAddress.value.trim(),
     barangay: form.barangay.value.trim(),
@@ -203,32 +103,22 @@ form.addEventListener("submit", function(e){
     symptoms: form.symptoms.value.trim()
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbyM7-v-sOMNcWsnKpeX5SMkYXZPM2cbMJNXWVZc7Ncg0jTy6YZ5DwzuylD0AL0aO5wmKA/exec", {
-    method: "POST",
-    body: JSON.stringify(formData)
+  if(!/^0\d{10}$/.test(data.contact)){errorEl.textContent="Invalid phone number. Enter 11 digits starting with 0.";return;}
+
+  fetch(webAppUrl,{
+    method:"POST",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
   })
-  .then(res => res.json())
-  .then(data => {
-    if(data.status === "success") {
-      responseMsg.textContent = "Thank you! We will reach you shortly. Keep your lines open.";
-      responseMsg.className = "success";
-      form.reset();
-    } else if(data.status === "duplicate") {
-      responseMsg.textContent = "Duplicate entry. PhilHealth number already exists.";
-      responseMsg.className = "error";
-    } else {
-      responseMsg.textContent = data.message || "Submission error. Please try again.";
-      responseMsg.className = "error";
-    }
+  .then(res=>res.text())
+  .then(resp=>{
+    if(resp.includes("Duplicate Entry")) errorEl.textContent="Duplicate PhilHealth Number. Entry not saved.";
+    else if(resp.includes("Missing required field")) errorEl.textContent=resp;
+    else if(resp.includes("Success")){clearForm();nextPage(3);}
+    else errorEl.textContent="Submission error. Please try again.";
   })
-  .catch(err => {
-    responseMsg.textContent = "Submission error. Please try again.";
-    responseMsg.className = "error";
-  });
+  .catch(err=>{errorEl.textContent="Error submitting form."; console.error(err);});
 });
-
-clearBtn.addEventListener("click", () => form.reset());
 </script>
-
 </body>
 </html>
