@@ -5,185 +5,229 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PhilMedConnect</title>
 <style>
-/* --- General Styles --- */
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f7f9fc; color: #333; margin: 0; padding: 0; }
-h1,h2 { color: #2b6cb0; margin-bottom: 10px; }
-p { font-size: 16px; line-height: 1.5; }
-button { background: #2b6cb0; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-button:hover { transform: scale(1.03); transition: transform 0.3s ease, background 0.3s ease; background: #1a4c7d; }
-input,textarea,select { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-/* --- Sections --- */
-section { display: none; padding: 20px; max-width: 500px; margin: auto; }
-section.active { display: block; animation: fadeInUp 0.6s ease forwards; }
-
-/* --- Animations --- */
-@keyframes fadeInUp { from { opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
-@keyframes logoBounce { 0%,20%,50%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-10px);} 60%{transform:translateY(-5px);} }
-header img { display:block; margin:auto; width:180px; animation: logoBounce 1.5s ease-in-out; }
-
-/* --- Back to Top --- */
-#backToTop { position:fixed; bottom:20px; right:20px; display:none; padding:8px 12px; font-size:14px; }
-
-/* --- Notes & Errors --- */
-.note { font-size:12px; color:#555; margin-top:-5px; margin-bottom:10px; }
-.error { color:red; font-size:12px; display:none; }
-
-/* --- Form Styling --- */
-.form-input { margin-bottom: 12px; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f5f7fb, #e2ebf7);
+    color: #333;
+  }
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  img.logo {
+    width: 180px;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #2b6cb0;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .input-group {
+    position: relative;
+  }
+  .input-group i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+  }
+  input, select, textarea {
+    padding: 10px 10px 10px 35px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    transition: border 0.3s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #2b6cb0;
+    outline: none;
+  }
+  button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2b6cb0;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background-color: #1a4c7d;
+  }
+  .error, .success {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .error { color: #d9534f; }
+  .success { color: #28a745; }
+  small { color: #666; }
 </style>
 </head>
 <body>
 
-<header>
-  <img src="philmedconnect_logo.png" alt="PhilMedConnect Logo">
-</header>
+<div class="container">
+  <img src="philmedconnect_logo.png" alt="PhilMedConnect Logo" class="logo">
 
-<!-- SECTION 1: Welcome -->
-<section id="welcome" class="active">
-  <h1>Maligayang Pagdating!</h1>
-  <p>We make healthcare access easier for all active PhilHealth members. Kung may nararamdaman ka o may sakit, mag-register ngayon at makakonekta ka sa licensed doctor online.</p>
-  <p>If the doctor prescribes PhilHealth-covered medications, we will deliver them to your home at no cost.</p>
-  <p>Para lamang sa active PhilHealth members. Your information will be kept confidential.</p>
-  <button onclick="showSection('form')">Mag-register Ngayon</button>
-</section>
+  <h1>Para sa Active PhilHealth Members</h1>
+  <p>Kung may nararamdaman o sakit, mag-register ngayon! Konektado ka sa licensed doctor online. Kung may PhilHealth-covered medication, ito ay ihahatid sa bahay mo <strong>no patient cost</strong>.</p>
 
-<!-- SECTION 2: Form -->
-<section id="form">
-  <h2>Registration Form</h2>
   <form id="leadForm">
-    <div class="form-input">
-      <label>First Name *</label>
-      <input type="text" name="firstName" required>
+
+    <div class="input-group">
+      <i class="fa fa-user"></i>
+      <input type="text" name="firstName" placeholder="First Name *" required>
     </div>
-    <div class="form-input">
-      <label>Middle Name (optional)</label>
-      <input type="text" name="middleName">
+
+    <div class="input-group">
+      <i class="fa fa-user"></i>
+      <input type="text" name="middleName" placeholder="Middle Name">
     </div>
-    <div class="form-input">
-      <label>Last Name *</label>
-      <input type="text" name="lastName" required>
+
+    <div class="input-group">
+      <i class="fa fa-user"></i>
+      <input type="text" name="lastName" placeholder="Last Name *" required>
     </div>
-    <div class="form-input">
-      <label>Suffix</label>
+
+    <div class="input-group">
+      <i class="fa fa-asterisk"></i>
       <select name="suffix">
-        <option value="">None</option>
+        <option value="">Suffix</option>
         <option value="Jr">Jr</option>
         <option value="Sr">Sr</option>
         <option value="III">III</option>
         <option value="IV">IV</option>
       </select>
     </div>
-    <div class="form-input">
-      <label>Date of Birth *</label>
+
+    <div class="input-group">
+      <i class="fa fa-calendar"></i>
       <input type="date" name="dob" required>
     </div>
-    <div class="form-input">
-      <label>PhilHealth Number *</label>
-      <input type="text" name="philhealthNumber" required>
+
+    <div class="input-group">
+      <i class="fa fa-id-card"></i>
+      <input type="text" name="philhealthNumber" placeholder="PhilHealth Number *" required>
     </div>
-    <div class="form-input">
-      <label>Contact Number *</label>
-      <input type="text" name="contact" required>
-      <div id="contactError" class="error">Please enter an 11-digit number starting with 0.</div>
+
+    <div class="input-group">
+      <i class="fa fa-phone"></i>
+      <input type="text" name="contact" placeholder="Contact Number *" required>
+      <small>Enter 10 or 11 digits, numbers only.</small>
     </div>
-    <div class="form-input">
-      <label>Email Address</label>
-      <input type="email" name="email">
+
+    <div class="input-group">
+      <i class="fa fa-envelope"></i>
+      <input type="email" name="email" placeholder="Email Address">
     </div>
-    <div class="form-input">
-      <label>Street Address *</label>
-      <input type="text" name="street" required>
+
+    <div class="input-group">
+      <i class="fa fa-home"></i>
+      <input type="text" name="streetAddress" placeholder="Street Address *" required>
     </div>
-    <div class="form-input">
-      <label>Barangay *</label>
-      <input type="text" name="barangay" required>
+
+    <div class="input-group">
+      <i class="fa fa-map-marker-alt"></i>
+      <input type="text" name="barangay" placeholder="Barangay *" required>
     </div>
-    <div class="form-input">
-      <label>City / Municipality *</label>
-      <input type="text" name="city" required>
+
+    <div class="input-group">
+      <i class="fa fa-city"></i>
+      <input type="text" name="city" placeholder="Municipality / City *" required>
     </div>
-    <div class="form-input">
-      <label>Province *</label>
-      <input type="text" name="province" required>
+
+    <div class="input-group">
+      <i class="fa fa-flag"></i>
+      <input type="text" name="province" placeholder="Province *" required>
     </div>
-    <div class="form-input">
-      <label>Symptoms / Reason for consult *</label>
-      <textarea name="symptoms" rows="3" required></textarea>
+
+    <div class="input-group">
+      <i class="fa fa-stethoscope"></i>
+      <textarea name="symptoms" placeholder="Symptoms / Reason for Consult *" rows="3" required></textarea>
     </div>
-    <div id="philDuplicate" class="error">Duplicate entry detected for PhilHealth Number.</div>
-    <p class="note">Your information will be kept confidential and only used for medical consultation purposes.</p>
-    <button type="button" onclick="leadForm.reset()">Clear Form</button>
+
     <button type="submit">Submit</button>
+    <button type="button" id="clearBtn">Clear Form</button>
+
+    <div id="responseMsg"></div>
   </form>
-  <button onclick="showSection('welcome')">Back</button>
-</section>
-
-<!-- SECTION 3: Thank You -->
-<section id="thankyou">
-  <h2>Salamat!</h2>
-  <p>We will reach out to you shortly. Please keep your lines open. Our friendly healthcare agents will contact you.</p>
-</section>
-
-<button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top</button>
+</div>
 
 <script>
-const sections = document.querySelectorAll('section');
-function showSection(id){
-  sections.forEach(sec => sec.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+const form = document.getElementById("leadForm");
+const responseMsg = document.getElementById("responseMsg");
+const clearBtn = document.getElementById("clearBtn");
 
-// Back to Top visibility
-window.onscroll = function(){
-  document.getElementById('backToTop').style.display = (window.scrollY > 200)?'block':'none';
-};
-
-// Form Submission
-const leadForm = document.getElementById('leadForm');
-leadForm.addEventListener('submit', function(e){
+form.addEventListener("submit", function(e){
   e.preventDefault();
+  responseMsg.textContent = "";
+
   const formData = {
-    firstName: e.target.firstName.value.trim(),
-    middleName: e.target.middleName.value.trim(),
-    lastName: e.target.lastName.value.trim(),
-    suffix: e.target.suffix.value,
-    dob: e.target.dob.value,
-    philhealthNumber: e.target.philhealthNumber.value.trim(),
-    contact: e.target.contact.value.trim(),
-    email: e.target.email.value.trim(),
-    street: e.target.street.value.trim(),
-    barangay: e.target.barangay.value.trim(),
-    city: e.target.city.value.trim(),
-    province: e.target.province.value.trim(),
-    symptoms: e.target.symptoms.value.trim()
+    firstName: form.firstName.value.trim(),
+    middleName: form.middleName.value.trim(),
+    lastName: form.lastName.value.trim(),
+    suffix: form.suffix.value,
+    dob: form.dob.value,
+    philhealthNumber: form.philhealthNumber.value.trim(),
+    contact: form.contact.value.trim(),
+    email: form.email.value.trim(),
+    streetAddress: form.streetAddress.value.trim(),
+    barangay: form.barangay.value.trim(),
+    city: form.city.value.trim(),
+    province: form.province.value.trim(),
+    symptoms: form.symptoms.value.trim()
   };
 
-  // Validate contact number (11 digits starting with 0)
-  if(!/^0\d{10}$/.test(formData.contact)){
-    document.getElementById('contactError').style.display = 'block';
-    return;
-  } else {
-    document.getElementById('contactError').style.display = 'none';
-  }
-
-  // Send to Google Sheets
-  fetch("https://script.google.com/macros/s/AKfycbwDEn9WnQDisRx31aXrmIEGzh8wjZmcuCQVJgK_a4onNpwt6Ua3HtS0WooubZzH-jOd9A/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbyM7-v-sOMNcWsnKpeX5SMkYXZPM2cbMJNXWVZc7Ncg0jTy6YZ5DwzuylD0AL0aO5wmKA/exec", {
     method: "POST",
     body: JSON.stringify(formData)
   })
   .then(res => res.json())
   .then(data => {
-    if(data.status === 'duplicate'){
-      document.getElementById('philDuplicate').style.display = 'block';
+    if(data.status === "success") {
+      responseMsg.textContent = "Thank you! We will reach you shortly. Keep your lines open.";
+      responseMsg.className = "success";
+      form.reset();
+    } else if(data.status === "duplicate") {
+      responseMsg.textContent = "Duplicate entry. PhilHealth number already exists.";
+      responseMsg.className = "error";
     } else {
-      document.getElementById('philDuplicate').style.display = 'none';
-      leadForm.reset();
-      showSection('thankyou');
+      responseMsg.textContent = data.message || "Submission error. Please try again.";
+      responseMsg.className = "error";
     }
   })
-  .catch(err => alert('Submission error. Please try again.'));
+  .catch(err => {
+    responseMsg.textContent = "Submission error. Please try again.";
+    responseMsg.className = "error";
+  });
 });
+
+clearBtn.addEventListener("click", () => form.reset());
 </script>
 
 </body>
